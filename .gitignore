@@ -7,6 +7,10 @@
 
 venv/
 __pycache__/
+*.pyc
 .env
+serviceAccountKey.json
 *.json
 !package.json
+.vscode/
+.DS_Store

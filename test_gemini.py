@@ -9,6 +9,6 @@ client = OpenAI(
 res = client.chat.completions.create(
     model=GEMINI_MODEL,
     messages=[{"role": "user", "content": "안녕! 한 문장으로 자기소개 해줘."}],
-    max_tokens=200,
+    max_tokens=1000,
 )
 print(res.choices[0].message.content)
