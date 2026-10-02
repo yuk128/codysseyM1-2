@@ -61,3 +61,12 @@ def delete_conversation(conv_id: str) -> None:
     if not ref.get().exists:
         raise ConversationNotFoundError(f"id '{conv_id}' 대화를 찾을 수 없습니다.")
     ref.delete()
+
+def append_messages(conv_id: str, new_messages: list[dict]) -> int:
+    ref = _col().document(conv_id)
+    snap = ref.get()
+    if not snap.exists:
+        raise ConversationNotFoundError(f"id '{conv_id}' 대화를 찾을 수 없습니다.")
+    messages = snap.to_dict().get("messages", []) + new_messages
+    ref.update({"messages": messages, "message_count": len(messages)})
+    return len(messages)

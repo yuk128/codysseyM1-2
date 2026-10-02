@@ -5,7 +5,7 @@ from google.api_core.exceptions import GoogleAPICallError
 
 import database  # noqa: F401  (앱 시작 시 Firebase 초기화)
 from config import ALLOWED_ORIGINS
-from routers import conversations, data
+from routers import chat, conversations, data
 
 DESCRIPTION = """
 서울 일별 기온 데이터를 저장·조회하고, 이 데이터를 바탕으로 대화하는 **AI 비서 API**입니다.
@@ -53,6 +53,7 @@ app.add_middleware(
 
 app.include_router(data.router)
 app.include_router(conversations.router)
+app.include_router(chat.router)
 
 
 @app.exception_handler(GoogleAPICallError)
