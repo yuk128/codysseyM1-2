@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>서울 기온 AI 비서</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🌡️ 서울 기온 AI 비서</h1>
+    <p class="sub">저장된 서울 일별 기온 데이터를 바탕으로 답해 주는 AI 비서</p>
+  </header>
+
+  <div id="notice" class="notice hidden"></div>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="card">
+        <div class="card-head">
+          <h2>데이터 요약</h2>
+          <button id="btn-refresh-summary" class="ghost" title="새로고침">↻</button>
+        </div>
+        <div id="summary-body" class="summary-body">불러오는 중…</div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <h2>대화 기록</h2>
+          <button id="btn-new-chat" class="primary small">+ 새 대화</button>
+        </div>
+        <ul id="conv-list" class="conv-list"></ul>
+      </section>
+    </aside>
+
+    <section class="content">
+      <nav class="tabs">
+        <button class="tab active" data-tab="chat">💬 채팅</button>
+        <button class="tab" data-tab="data">📊 데이터 관리</button>
+      </nav>
+
+      <div id="tab-chat" class="panel">
+        <div id="chat-title" class="chat-title">새 대화</div>
+        <div id="messages" class="messages"></div>
+        <form id="chat-form" class="chat-form">
+          <input id="chat-input" type="text" maxlength="1000" autocomplete="off"
+                 placeholder="기온 데이터에 대해 질문해 보세요">
+          <button id="btn-send" type="submit" class="primary">보내기</button>
+        </form>
+      </div>
+
+      <div id="tab-data" class="panel hidden">
+        <form id="data-form" class="data-form">
+          <label>날짜<input id="f-date" type="date" required></label>
+          <label>평균기온(°C)<input id="f-value" type="number" step="0.1" min="-60" max="60" required></label>
+          <label class="grow">메모<input id="f-memo" type="text" maxlength="200" placeholder="예: 최고 3.1°C / 최저 -5.3°C"></label>
+          <button type="submit" class="primary">추가</button>
+        </form>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>날짜</th><th>평균기온</th><th>메모</th><th></th></tr>
+            </thead>
+            <tbody id="data-body"></tbody>
+          </table>
+        </div>
+        <div class="more-wrap">
+          <span id="data-count" class="muted"></span>
+          <button id="btn-more" class="ghost">더 보기</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="edit-dialog">
+    <form id="edit-form">
+      <h3>데이터 수정</h3>
+      <label>날짜<input id="e-date" type="date" required></label>
+      <label>평균기온(°C)<input id="e-value" type="number" step="0.1" min="-60" max="60" required></label>
+      <label>메모<input id="e-memo" type="text" maxlength="200"></label>
+      <div class="dialog-actions">
+        <button type="button" id="e-cancel" class="ghost">취소</button>
+        <button type="submit" class="primary">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
