@@ -280,7 +280,7 @@ async function addData(event) {
     toast("데이터를 추가했어요.");
     $("#data-form").reset();
     await Promise.all([loadData(), loadSummary()]);
-  } catch (e) {
+  } catch (e) { 
     toast(e.message, "error");
   }
 }
